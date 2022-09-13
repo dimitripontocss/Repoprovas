@@ -16,6 +16,4 @@ app.use(express.json());
 app.use(router);
 app.use(errorHandlingMiddleware);
 
-app.listen(process.env.PORT, () => {
-    console.log(`Server on! na porta ${process.env.PORT}`);
-});
+export default app;
