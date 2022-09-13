@@ -17,3 +17,68 @@ model User {
   
   @@map("users")
 }
+
+model Term {
+  id        Int         @id @default(autoincrement())
+  number    Int         @unique
+  
+  disciplines Discipline[]
+
+  @@map("terms")
+}
+
+model Discipline {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  termId    Int
+  
+  terms     Term        @relation(fields: [termId], references: [id])
+
+  teacherDiscipline teacherDiscipline[]
+
+  @@map("disciplines")
+}
+
+model Teacher {
+  id        Int         @id @default(autoincrement())
+  name      String      @unique
+  
+  teacherDiscipline teacherDiscipline[]
+
+  @@map("teachers")
+}
+
+model teacherDiscipline {
+  id           Int      @id @default(autoincrement())
+  disciplineId Int
+  teacherId    Int
+
+  discipline Discipline @relation(fields: [disciplineId], references: [id])
+  teacher    Teacher    @relation(fields: [teacherId], references: [id])
+
+  tests Test[]
+
+  @@map("teachersDisciplines")
+}
+
+model Test {
+  id        Int         @id @default(autoincrement())
+  name      String  
+  pdfUrl    String
+  teacherDisciplineId Int
+  categoryId          Int
+
+  teacherDiscipline teacherDiscipline @relation(fields: [teacherDisciplineId], references: [id])
+  category          Category          @relation(fields: [categoryId], references: [id])
+  
+  @@map("tests")
+}
+
+model Category {
+  id        Int         @id @default(autoincrement())
+  name     String       @unique
+  
+  tests Test[] 
+
+  @@map("categories")
+}
