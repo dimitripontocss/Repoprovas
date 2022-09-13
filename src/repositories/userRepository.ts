@@ -16,3 +16,9 @@ export async function findSingleUser(email: string) {
     return result;
 }
 
+export async function findUserById(id: number) {
+    const result = await prisma.user.findUnique({
+        where:{id}
+    })
+    return result;
+}

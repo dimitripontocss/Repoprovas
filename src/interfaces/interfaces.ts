@@ -1,6 +1,7 @@
-import { User } from "@prisma/client";
+import { User,Test } from "@prisma/client";
 
 export type TUser = Omit<User,'id'>
+export type TTest = Omit<Test,'id'>
 
 export interface INewUserData {
     email: string;
