@@ -12,7 +12,7 @@ const testRouter = Router();
 testRouter.use(jtwAuth);
 
 testRouter.post("/test", schemasMiddleware(testSchema), createTest);
-testRouter.get("/tests/discipline/:disciplineId", getDisciplineTests);
-testRouter.get("/tests/teacher/:teacherId", getTeacherTests);
+testRouter.get("/tests/disciplines", getDisciplineTests);
+testRouter.get("/tests/teachers", getTeacherTests);
 
 export default testRouter;

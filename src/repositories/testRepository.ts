@@ -9,23 +9,9 @@ export async function getCategoryByName(name: string) {
     return result;
 }
 
-export async function getDisciplineById(id: number) {
-    const result = await prisma.discipline.findUnique({
-        where:{id}
-    })
-    return result;
-}
-
 export async function getDisciplineByName(name: string) {
     const result = await prisma.discipline.findUnique({
         where:{name}
-    })
-    return result;
-}
-
-export async function getTeacherById(id: number) {
-    const result = await prisma.teacher.findUnique({
-        where:{id}
     })
     return result;
 }
@@ -53,67 +39,61 @@ export async function insertTest(newTest: TTest) {
     })
 }
 
-export async function findTestsByDisciplineId(disciplineId:number) {
-    const result = await prisma.teacherDiscipline.findMany({
-        where:{disciplineId},
+export async function findTestsByDisciplineId() {
+    const result =  await prisma.term.findMany({
         select:{
-            discipline:{
+            number: true,
+            disciplines: {
                 select:{
-                    name:true,
+                    name: true,
                     teacherDiscipline:{
                         select:{
+                            teacher:{
+                                select:{
+                                    name: true
+                                }
+                            },
                             tests:{
                                 select:{
-                                    name:true,
+                                    name: true,
+                                    pdfUrl: true,
                                     category:{
                                         select:{
-                                            name:true
-                                        }
-                                    },
-                                    teacherDiscipline:{
-                                        select:{
-                                            teacher:{
-                                                select:{
-                                                    name:true
-                                                }
-                                            }
+                                            name: true
                                         }
                                     }
                                 }
                             }
                         }
                     }
-                }
+                }                
             }
+
         }
-    })
+    });
     return result;
 }
 
-export async function findTestsByTeacherId(teacherId:number) {
-    const result = await prisma.teacherDiscipline.findFirst({
-        where:{teacherId},
+export async function findTestsByTeacherId() {
+    const result = await prisma.teacher.findMany({
         select:{
-            teacher:{
+            name:true,
+            teacherDiscipline:{
                 select:{
-                    name:true,
-                    teacherDiscipline:{
+                    tests:{
                         select:{
-                            tests:{
+                            name:true,
+                            pdfUrl:true,
+                            category:{
                                 select:{
-                                    name:true,
-                                    category:{
+                                    name:true
+                                }
+                            },
+                            teacherDiscipline:{
+                                select:{
+                                    discipline:{
                                         select:{
-                                            name:true
-                                        }
-                                    },
-                                    teacherDiscipline:{
-                                        select:{
-                                            discipline:{
-                                                select:{
-                                                    name:true
-                                                }
-                                            }
+                                            name: true
                                         }
                                     }
                                 }
@@ -123,6 +103,6 @@ export async function findTestsByTeacherId(teacherId:number) {
                 }
             }
         }
-    })
-    return result;
+    });
+    return result
 }

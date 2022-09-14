@@ -10,13 +10,11 @@ export async function createTest(req:Request, res:Response){
 }
 
 export async function getDisciplineTests(req:Request, res:Response){
-    const disciplineId: number = +req.params.disciplineId;
-    const tests = await testService.getDisciplineTests(disciplineId);
+    const tests = await testService.getDisciplineTests();
     res.status(200).send(tests);
 }
 
 export async function getTeacherTests(req:Request, res:Response){
-    const teacherId: number = +req.params.teacherId;
-    const tests = await testService.getTeacherTests(teacherId);
+    const tests = await testService.getTeacherTests();
     res.status(200).send(tests);
 }

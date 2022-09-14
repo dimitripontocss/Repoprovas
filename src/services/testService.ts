@@ -14,19 +14,39 @@ export async function insertNewTest(newTest: INewTestData) {
     });
 }
 
-export async function getDisciplineTests(disciplineId:number) {
-    const discipline = await testRepository.getDisciplineById(disciplineId);
-    if(!discipline)   throw {name: "not_found", message: "Discipline not found"};
+export async function getDisciplineTests() {
+    const tests = await testRepository.findTestsByDisciplineId() as any;
 
-    const tests = await testRepository.findTestsByDisciplineId(disciplineId);
+    tests.forEach(i=>{
+        i.disciplines.forEach(j=>{
+            j.teacherDiscipline.forEach(k=>{
+                const teacher = k.teacher.name
+                delete k.teacher
+                k.tests.forEach(l=>{
+                    l.teacher = teacher
+                    l.category = l.category.name
+                })
+            })
+        })
+    })
+
     return tests;
 }
 
-export async function getTeacherTests(teacherId:number) {
-    const teacher = await testRepository.getTeacherById(teacherId);
-    if(!teacher)   throw {name: "not_found", message: "Teacher not found"};
+export async function getTeacherTests() {
+    const tests = await testRepository.findTestsByTeacherId() as any;
 
-    const tests = await testRepository.findTestsByTeacherId(teacherId);
+    tests.forEach(i=>{
+        i.teacherDiscipline.forEach(j=>{
+            j.tests.forEach(k=>{
+                const discipline = k.teacherDiscipline.discipline.name
+                k.category = k.category.name
+                k.discipline = discipline
+                delete k.teacherDiscipline
+            })
+        })
+    })
+
     return tests;
 }
 
