@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 
-import { TTest } from "../interfaces/interfaces";
-import * as testService from "../services/testService.js";
+import { INewTestData } from "../interfaces/interfaces";
+import * as testService from "../services/testService";
 
 export async function createTest(req:Request, res:Response){
-    const newTestData: TTest = req.body;
+    const newTestData: INewTestData = req.body;
     await testService.insertNewTest(newTestData);
     res.sendStatus(201);
 }

@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { Request, Response, NextFunction } from "express";
 
-import * as userService from "../services/userService.js";
+import * as userService from "../services/userService";
 
 export async function jtwAuth(req: Request, res: Response, next:NextFunction){
     const authorization = req.headers['authorization'];

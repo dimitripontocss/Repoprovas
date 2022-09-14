@@ -1,10 +1,10 @@
 import { Router } from "express";
 
-import { jtwAuth } from "../middlewares/jwtAuthMiddleware.js";
-import { schemasMiddleware } from "../middlewares/schemasMiddleware.js";
-import { testSchema } from "../schemas/testSchema.js";
+import { jtwAuth } from "../middlewares/jwtAuthMiddleware";
+import { schemasMiddleware } from "../middlewares/schemasMiddleware";
+import { testSchema } from "../schemas/testSchema";
 
-import { createTest, getDisciplineTests, getTeacherTests } from "../controllers/testController.js";
+import { createTest, getDisciplineTests, getTeacherTests } from "../controllers/testController";
 
 
 const testRouter = Router();

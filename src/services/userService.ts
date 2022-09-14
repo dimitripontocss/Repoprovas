@@ -1,8 +1,8 @@
 import bcrypt from "bcrypt";
 
-import { INewUserData,TUser } from "../interfaces/interfaces.js";
-import * as userRepository from "../repositories/userRepository.js";
-import jwtGenerator from "../utils/jwtGenerator.js";
+import { INewUserData,TUser } from "../interfaces/interfaces";
+import * as userRepository from "../repositories/userRepository";
+import jwtGenerator from "../utils/jwtGenerator";
 
 
 export async function signUpService(newUserData: INewUserData) {    

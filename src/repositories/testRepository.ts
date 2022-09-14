@@ -1,10 +1,10 @@
-import { prisma } from "../databaseStrategy/database.js";
+import { prisma } from "../databaseStrategy/database";
 
-import { TTest } from "../interfaces/interfaces.js";
+import { TTest } from "../interfaces/interfaces";
 
-export async function getCategoryById(id: number) {
+export async function getCategoryByName(name: string) {
     const result = await prisma.category.findUnique({
-        where:{id}
+        where:{name}
     })
     return result;
 }
@@ -16,6 +16,13 @@ export async function getDisciplineById(id: number) {
     return result;
 }
 
+export async function getDisciplineByName(name: string) {
+    const result = await prisma.discipline.findUnique({
+        where:{name}
+    })
+    return result;
+}
+
 export async function getTeacherById(id: number) {
     const result = await prisma.teacher.findUnique({
         where:{id}
@@ -23,9 +30,19 @@ export async function getTeacherById(id: number) {
     return result;
 }
 
-export async function getTeacherDisciplineById(id: number) {
-    const result = await prisma.teacherDiscipline.findUnique({
-        where:{id}
+export async function getTeacherByName(name: string) {
+    const result = await prisma.teacher.findUnique({
+        where:{name}
+    })
+    return result;
+}
+
+export async function getTeacherDisciplineByIds(teacherId: number, disciplineId: number) {
+    const result = await prisma.teacherDiscipline.findFirst({
+        where:{
+            teacherId,
+            disciplineId
+        }
     })
     return result;
 }

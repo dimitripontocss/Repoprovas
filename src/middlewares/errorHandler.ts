@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 
-import { IError } from "../interfaces/interfaces.js";
+import { IError } from "../interfaces/interfaces";
 
 export default function errorHandlingMiddleware(error: IError | Error, req: Request, res: Response, next: NextFunction) {
 	if(error.name === "Already used"){
