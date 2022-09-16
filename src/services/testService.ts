@@ -6,7 +6,7 @@ import * as testRepository from "../repositories/testRepository";
 export async function insertNewTest(newTest: INewTestData) {
     const {categoryId, teacherDisciplineId} = await infoValidator(newTest);
 
-    await testRepository.insertTest({
+    return await testRepository.insertTest({
         name: newTest.name,
         pdfUrl: newTest.pdfUrl,
         categoryId,

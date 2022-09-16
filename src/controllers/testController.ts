@@ -5,8 +5,8 @@ import * as testService from "../services/testService";
 
 export async function createTest(req:Request, res:Response){
     const newTestData: INewTestData = req.body;
-    await testService.insertNewTest(newTestData);
-    res.sendStatus(201);
+    const newTest = await testService.insertNewTest(newTestData);
+    res.status(201).send(newTest);
 }
 
 export async function getDisciplineTests(req:Request, res:Response){

@@ -34,9 +34,9 @@ export async function getTeacherDisciplineByIds(teacherId: number, disciplineId:
 }
 
 export async function insertTest(newTest: TTest) {
-    await prisma.test.create({
-        data: newTest
-    })
+    return await prisma.test.create({
+                data: newTest
+            })
 }
 
 export async function findTestsByDisciplineId() {

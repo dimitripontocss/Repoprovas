@@ -18,7 +18,8 @@ export async function createTestTest() {
             
             const result = await supertest(app).post("/test").set('Authorization', 'Bearer ' + token).send(test);
     
-            expect(result.status).toEqual(201);           
+            expect(result.status).toEqual(201);     
+            expect(result.body).toBeInstanceOf(Object);      
         });
     
         it("returns 422 for wrong format test", async () => {

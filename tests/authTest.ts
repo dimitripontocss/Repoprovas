@@ -53,7 +53,6 @@ export async function authTest() {
             const result = await supertest(app).post("/signin").send(signInBody);
             const status = result.status;
             const body = result.body;
-            console.log(body.token);
     
             expect(status).toEqual(200);
             expect(body).toHaveProperty('token');        
@@ -76,6 +75,21 @@ export async function authTest() {
             const status = result.status;
     
             expect(status).toEqual(422);        
+        });
+
+        it("returns 401 for user with wrong data", async () => {
+            const signUpBody = await createSignUpUser();
+            
+            const signInBody = {
+                email: signUpBody.email,
+                password: signUpBody.password+"a"
+            }
+    
+            await supertest(app).post("/signup").send(signUpBody);
+            const result = await supertest(app).post("/signin").send(signInBody);
+            const status = result.status;
+    
+            expect(status).toEqual(401);       
         });
     });
 
