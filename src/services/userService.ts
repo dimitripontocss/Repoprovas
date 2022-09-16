@@ -1,8 +1,10 @@
 import bcrypt from "bcrypt";
+import sgMail from "@sendgrid/mail";
 
 import { INewUserData,TUser } from "../interfaces/interfaces";
 import * as userRepository from "../repositories/userRepository";
 import jwtGenerator from "../utils/jwtGenerator";
+import { createNamedExports } from "typescript";
 
 
 export async function signUpService(newUserData: INewUserData) {    
@@ -40,4 +42,27 @@ export async function findPossibleUserById(userId:number) {
     if (!user) throw {name: "not_found", message: "User not found"};
 
     return user;
+}
+
+export async function sendEmails(teacher: string,category: string,name: string,discipline: string) {
+    const SG_API_KEY = process.env.SG_API_KEY;
+    sgMail.setApiKey(SG_API_KEY);
+    try{
+        const emails = await userRepository.getAllUsersEmails();
+        for(const email of emails){
+            const body = {
+                to: email.email,
+                from: "assis.dimitri@engenharia.ufjf.br",
+                subject: "Estudante, uma nova prova foi adicionada!",
+                text: `A seguinte prova foi adicionada: ${teacher} ${category} - ${name} ${discipline}`
+            }
+            await sgMail.send(body)
+        }
+    }catch(error) {
+        console.log(error.body);
+        throw {
+            name: "error_email",
+            message: "Test created on dataBase, but failed to send email"
+        }
+    }
 }

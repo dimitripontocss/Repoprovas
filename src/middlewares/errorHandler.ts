@@ -6,6 +6,9 @@ export default function errorHandlingMiddleware(error: IError | Error, req: Requ
 	if(error.name === "Already used"){
 		return res.status(409).send(error.message);
 	}
+	if(error.name === "error_email"){
+		return res.status(500).send(error.message);
+	}
 	if(error.name === "auth_error"){
 		return res.status(401).send(error.message);
 	}

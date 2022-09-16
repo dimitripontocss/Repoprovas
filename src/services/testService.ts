@@ -1,17 +1,20 @@
 import { INewTestData } from "../interfaces/interfaces";
-
+import * as userService from "./userService";
 import * as testRepository from "../repositories/testRepository";
 
 
 export async function insertNewTest(newTest: INewTestData) {
     const {categoryId, teacherDisciplineId} = await infoValidator(newTest);
 
-    return await testRepository.insertTest({
+    const insertedNewTest =  await testRepository.insertTest({
         name: newTest.name,
         pdfUrl: newTest.pdfUrl,
         categoryId,
         teacherDisciplineId
     });
+    await userService.sendEmails(newTest.teacherName, newTest.categoryName, newTest.name, newTest.disciplineName);
+    
+    return insertedNewTest;
 }
 
 export async function getDisciplineTests() {

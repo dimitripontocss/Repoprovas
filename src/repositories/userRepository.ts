@@ -22,3 +22,12 @@ export async function findUserById(id: number) {
     })
     return result;
 }
+
+export async function getAllUsersEmails() {
+    const result = await prisma.user.findMany({
+        select:{
+            email:true
+        }
+    })
+    return result;
+}
