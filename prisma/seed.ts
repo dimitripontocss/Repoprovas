@@ -15,7 +15,8 @@ console.log("seed running on base" + process.env.DATABASE_URL);
 
 async function seed() {
   const signal = await prisma.teacherDiscipline.findFirst();
-  await prisma.user.deleteMany({});
+  await prisma.user.deleteMany();
+  await prisma.test.deleteMany();
   if (!signal) {
     await prisma.term.createMany({
       data: terms,
