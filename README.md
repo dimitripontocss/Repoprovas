@@ -30,7 +30,7 @@ This is a Api made for students to help each others, if you need an old test jus
 
 ```yml
 POST /signup
-    - Route used to regiter new users
+    - Route used to register new users
     - headers: {}
     - body:{
         "email": "lorem@gmail.com",
@@ -78,7 +78,7 @@ POST /test (authenticated)
 
 ---
 
-## 🏁 Runnig the application
+## 🏁 Running the application
 
 This project was made with Node.Js, so in order to run it at your machine you gotta have a stable version of Node.Js and NPM installed.
 
@@ -94,7 +94,13 @@ After, inside the directory, run this command to install the dependencies:
 npm install
 ```
 
-After its done run this comand to run the server:
+After its done run this command to build the aplication:
+
+```
+npm build
+```
+
+And then this command to run the server:
 
 ```
 npm start
